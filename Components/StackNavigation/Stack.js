@@ -6,10 +6,10 @@ import { StyleSheet } from "react-native";
 import LoginScreen from "./Login";
 import HomeScreen from "../Home";
 import Register from "./Register";
-import UpdateUser from "./UpdateUser";
+import UpdateUser from "../CrudOperation/UpdateUser";
 import CustomDrawer from "../DrawerNavigation/CustomDrawer";
 import Icon from "react-native-vector-icons/Ionicons"
-import Delete from "../Delete";
+import Delete from "../CrudOperation/Delete";
 import AddUser from "../CrudOperation/Add";
 const stacks = createNativeStackNavigator();
 const Drawers = createDrawerNavigator();
