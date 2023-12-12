@@ -15,37 +15,58 @@ class AddUser extends Component {
       emailError: ''
     };
   }
+  // componentDidMount(){
+  //   this.formValidation();
+  // }
+  validateInputs = () => {
+    const { firstName, lastName,email } = this.state;
+    let isValid = true;
 
-  handleCreateUser = () => {
-    const { firstName, lastName, email } = this.state;
-    if (!firstName) {
-      this.setState({ firstNameError: 'Firstname is required' });
-      return;
+    if (firstName.trim() === '') {
+      this.setState({ firstNameError: 'firstName cannot be empty' });
+      isValid = false;
+    } else {
+      this.setState({ firstNameError: '' });
     }
-    if (!lastName) {
-      this.setState({ lastNameError: 'Lastname is required' });
-      return;
+    if (lastName.trim() === '') {
+      this.setState({ lastNameError: 'lastName cannot be empty' });
+      isValid = false;
+    } else {
+      this.setState({ lastNameError: '' });
     }
-    if (!email) {
-      this.setState({ emailError: 'email is required' });
-      return;
+    if (email.trim() === '') {
+      this.setState({ emailError: 'email cannot be empty' });
+      isValid = false;
+    } else {
+      this.setState({ emailError: '' });
     }
-    // Adding a new user will not add it into the server.
-    // It will simulate a POST request and will return the new created user with a new id
-    axios.post('https://dummyjson.com/users/add', {
-      firstName,
-      lastName,
-      email
-    })
-      .then(response => {
-        console.log('User created successfully:', response.data);
-        Alert.alert('Add User Successfully')
-        // Optionally, you can navigate to another screen or perform other actions
-      })
-      .catch(error => {
-        console.error('Error creating user:', error);
-      });
+
+    return isValid;
   };
+  handleCreateUser = () => {
+    if (this.validateInputs()) {
+      const { firstName, lastName, email } = this.state;
+
+      try {
+        axios.post('https://dummyjson.com/users/add', {
+          firstName,
+          lastName,
+          email
+        })
+          .then(res => {
+            this.setState({
+              firstName: res.data.firstName
+            });
+            //  console.log('--------res.data.firstName----', res.data.firstName)
+          })
+      } catch (error) {
+        this.setState({ error: 'Invalid credentials. Please try again.' });
+        // .catch(error) {
+        //   console.error('Error creating user:', error);
+        // };
+      };
+    }
+  }
 
   render() {
     return (

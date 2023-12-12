@@ -11,6 +11,7 @@ import CustomDrawer from "../DrawerNavigation/CustomDrawer";
 import Icon from "react-native-vector-icons/Ionicons"
 import Delete from "../CrudOperation/Delete";
 import AddUser from "../CrudOperation/Add";
+import PushNotificationComponent from "../Notification/NotificationService";
 const stacks = createNativeStackNavigator();
 const Drawers = createDrawerNavigator();
 
@@ -22,6 +23,8 @@ function Root() {
       <Drawers.Screen name="Update" component={UpdateUser} />
       <Drawers.Screen name="Delete" component={Delete} />
       <Drawers.Screen name="Add" component={AddUser} />
+      <Drawers.Screen name="Notification" component={PushNotificationComponent}/>
+      
     </Drawers.Navigator>
   );
 }

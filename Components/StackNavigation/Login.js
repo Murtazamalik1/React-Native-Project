@@ -13,37 +13,45 @@ class LoginScreen extends React.Component {
             passwordError: ''
         };
     }
-    handleLogin = async () => {
+    validateInputs = () => {
+      const { username, password} = this.state;
+      let isValid = true;
+  
+      if (username.trim() === '') {
+        this.setState({ usernameError: 'firstName cannot be empty' });
+        isValid = false;
+      } else {
+        this.setState({ usernameError: '' });
+      }
+      if (password.trim() === '') {
+        this.setState({ passwordError: 'lastName cannot be empty' });
+        isValid = false;
+      } else {
+        this.setState({ passwordError: '' });
+      }
+      return isValid;
+    };
+    handleLogin = () => {
+      if (this.validateInputs()) {
         const { username, password } = this.state;
-
-        this.setState({ usernameError: '', passwordError: '' })
-        if (!username) {
-            this.setState({ usernameError: 'Username is required' });
-            return;
-        }
-        if (!password) {
-            this.setState({ passwordError: 'password is required' });
-            return;
-        }
-        await fetch('https://dummyjson.com/auth/login', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-            },
-            body: JSON.stringify({
-                username: 'kminchelle',
-                password: '0lelplR'
-            }),
-        })
-            .then(res => res.json())
-            .then((res) => {
-                console.log(res)
-                this.props.navigation.navigate('Root')
+        try {
+          axios.post('https://dummyjson.com/auth/login', {
+            username:'kminchelle',
+            password:'0lelplR',
+          })
+            .then(res => {
+              this.setState({
+                username: res.data.username,
+                password: res.data.password
+              });
+              this.props.navigation.navigate('Root')
+              //  console.log('--------res.data.firstName----', res.data.firstName)
             })
-            .catch((error) => {
-                console.error(error);
-                this.setState({ usernameError: 'network error' })
-            });
+        } catch (error) {
+          this.setState(
+            { error: 'Invalid credentials. Please try again.' });
+        };
+      }
     }
     render() {
         return (

@@ -1,5 +1,6 @@
 import React from "react";
 import axios from "axios";
+
 import { Text, View, StyleSheet, FlatList, Image, ImageBackground } from "react-native";
 
 class HomeScreen extends React.Component {
@@ -13,13 +14,13 @@ class HomeScreen extends React.Component {
         this.getApi();
     }
 
-    getApi = async () => {
-        await axios.get('https://dummyjson.com/products')
+    getApi =  () => {
+         axios.get('https://dummyjson.com/products')
             .then((res) => {
-                const ApiResponse = res.data.products
-                console.log(ApiResponse)
+                const ApiResponse = res.data
+                console.log('------response-------',res.data)
                 this.setState({
-                    data: res.data.products,
+                    data: res.data
                 });
             })
             .catch(error => {
@@ -49,7 +50,6 @@ class HomeScreen extends React.Component {
                                 </View>
                             </View>
                         </View>
-                        
                     )}
                 />
             </View>

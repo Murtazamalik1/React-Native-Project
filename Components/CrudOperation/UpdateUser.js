@@ -12,39 +12,54 @@ class UpdateUser extends Component {
             email: '',
             firstNameError: '',
             lastNameError: '',
-            emailError: ''
+            emailError: '',
+            Apiresponse: ''
         };
     }
-    handleUpdateUser = () => {
+    validateInputs = () => {
         const { firstName, lastName, email } = this.state;
-        if (!firstName) {
-            this.setState({ firstNameError: 'Firstname is required' });
-            return;
-        }
-        if (!lastName) {
-            this.setState({ lastNameError: 'Lastname is required' });
-            return;
-        }
-        if (!email) {
-            this.setState({ emailError: 'email is required' });
-            return;
-        }
+        let isValid = true;
 
-        // Updating a user will not update it into the server.
-        // It will simulate a PUT/PATCH request and will return the user with modified data
-        axios.put('https://dummyjson.com/users/2', {
-            firstName,
-            lastName,
-            email
-        })
-            .then(response => {
-                console.log('User updated successfully:', response.data);
-                Alert.alert('updated User Successfully')
-            })
-            .catch(error => {
-                console.error('Error updating user:', error);
-            });
+        if (firstName.trim() === '') {
+            this.setState({ firstNameError: 'firstName cannot be empty' });
+            isValid = false;
+        } else {
+            this.setState({ firstNameError: '' });
+        }
+        if (lastName.trim() === '') {
+            this.setState({ lastNameError: 'lastName cannot be empty' });
+            isValid = false;
+        } else {
+            this.setState({ lastNameError: '' });
+        }
+        if (email.trim() === '') {
+            this.setState({ emailError: 'email cannot be empty' });
+            isValid = false;
+        } else {
+            this.setState({ emailError: '' });
+        }
+        return isValid;
     };
+    handleUpdateUser = () => {
+        if (this.validateInputs()) {
+            const { firstName, lastName, email } = this.state;
+            try {
+                axios.put('https://dummyjson.com/users/1', {
+                    firstName,
+                    lastName,
+                    email
+                })
+                   .then(res => {
+                        this.setState({
+                            firstName: res.data.firstName
+                        });
+                    })
+            } catch (error) {
+                this.setState(
+                    { error: 'Invalid credentials. Please try again.' });
+            };
+        }
+    }
 
     render() {
         return (

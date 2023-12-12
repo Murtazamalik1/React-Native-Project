@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "140121219370",
+    "project_id": "react-native-demo-projec-e520d",
+    "storage_bucket": "react-native-demo-projec-e520d.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:140121219370:android:707fd5643acb0216813e53",
+        "android_client_info": {
+          "package_name": "com.restaurantsearchapp"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBPp5qMfx38Hm3GG3-Ne0D7iPJjge04V_o"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

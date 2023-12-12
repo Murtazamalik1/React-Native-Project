@@ -1,9 +1,10 @@
-import React from 'react';
+
+import React, { useEffect } from "react";
 import Stack from "./Components/StackNavigation/Stack";
 
 const App = () => {
-    return (
-      <Stack/>
-    );
+      return (
+         <Stack/>
+      )
 }
 export default App;
