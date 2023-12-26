@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
-import { View, Text, TextInput, Button, StyleSheet, Alert } from 'react-native';
+import { withTranslation } from 'react-i18next';
+import { View, Text, TextInput, Button, StyleSheet, Alert,TouchableOpacity } from 'react-native';
 import axios from 'axios';
 
 class DeleteUser extends Component {
@@ -15,31 +16,33 @@ class DeleteUser extends Component {
             ApiResponse: '',
         };
     }
-    // validateInputs = () => {
-    //     const { firstName, lastName,email } = this.state;
-    //     let isValid = true;
-    //     if (firstName.trim() === '') {
-    //       this.setState({ firstNameError: 'firstName cannot be empty' });
-    //       isValid = false;
-    //     } else {
-    //       this.setState({ firstNameError: '' });
-    //     }
-    //     if (lastName.trim() === '') {
-    //       this.setState({ lastNameError: 'lastName cannot be empty' });
-    //       isValid = false;
-    //     } else {
-    //       this.setState({ lastNameError: '' });
-    //     }
-    //     if (email.trim() === '') {
-    //       this.setState({ emailError: 'email cannot be empty' });
-    //       isValid = false;
-    //     } else {
-    //       this.setState({ emailError: '' });
-    //     }
-    //     return isValid;
-    //   };
+    validateInputs = () => {
+        const { t } = this.props;
+        const { firstName, lastName,email } = this.state;
+        let isValid = true;
+        if (firstName.trim() === '') {
+          this.setState({ firstNameError: t('firstName cannot be empty') });
+          isValid = false;
+        } else {
+          this.setState({ firstNameError: '' });
+        }
+        if (lastName.trim() === '') {
+          this.setState({ lastNameError: t('lastName cannot be empty') });
+          isValid = false;
+        } else {
+          this.setState({ lastNameError: '' });
+        }
+        if (email.trim() === '') {
+          this.setState({ emailError: t('email cannot be empty') });
+          isValid = false;
+        } else {
+          this.setState({ emailError: '' });
+        }
+        return isValid;
+      };
     handleDeleteUser = () => {
-      //  if (this.validateInputs()) {
+        const { t } = this.props;
+        if (this.validateInputs()) {
             const { firstName, lastName, email, } = this.state;
             try {
                 axios.delete('https://dummyjson.com/users/1', {
@@ -51,42 +54,49 @@ class DeleteUser extends Component {
                         const apiResponse = res.data
                         console.log('-------apiresponse-----',apiResponse)
                         this.setState({
-                            ApiResponse : res.data
+                            ApiResponse : res.data,
+                            firstName:'',
+                            lastName:'',
+                            email:''
                         });
+                        Alert.alert (t('Successfully Deleted'))
                     })
             } catch (error) {
                 this.setState(
                     { ApiResponse: 'Invalid credentials. Please try again.' });
             };
         };
-  //  }
+    }
     render() {
+        const { t } = this.props;
         return (
             <View style={styles.container}>
-                <Text style={styles.textStyle}>Delete User</Text>
+                <Text style={styles.textStyle}> {t('Delete User')} </Text>
                 <TextInput
                     style={styles.input}
-                    placeholder="firstName"
+                    placeholder= {t("Enter Your first Name")}
                     value={this.state.firstName}
                     onChangeText={text => this.setState({ firstName: text, firstNameError: '' })}
                 />
                 <Text style={styles.fieldError}>{this.state.firstNameError}</Text>
                 <TextInput
                     style={styles.input}
-                    placeholder="LastName"
+                    placeholder={t("Enter Your Last Name")}
                     value={this.state.lastName}
                     onChangeText={text => this.setState({ lastName: text, lastNameError: '' })}
                 />
                 <Text style={styles.fieldError}>{this.state.lastNameError}</Text>
                 <TextInput
                     style={styles.input}
-                    placeholder="email"
+                    placeholder={t("Enter Your Email")}
                     value={this.state.email}
                     onChangeText={text => this.setState({ email: text, emailError: '' })}
                 />
                 <Text style={styles.fieldError}>{this.state.emailError}</Text>
-                <Button title="Delete User" onPress={this.handleDeleteUser}
-                />
+                <TouchableOpacity
+                    onPress={this.handleDeleteUser} >
+                    <Text style={styles.btn}> {t("Delete User")} </Text>
+                </TouchableOpacity>
             </View>
         );
     }
@@ -94,7 +104,8 @@ class DeleteUser extends Component {
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        alignItems: 'center',
+        paddingHorizontal: 10,
+        left:40
     },
     input: {
         justifyContent: 'center',
@@ -104,18 +115,33 @@ const styles = StyleSheet.create({
         borderBottomWidth: 1,
         marginBottom: 10,
         paddingHorizontal: 3,
+        fontSize:15
     },
     textStyle: {
         marginTop: 50,
         marginBottom: 60,
         fontSize: 30,
-        color: 'red'
+        color: 'red',
+        left:'14%',
     },
     fieldError: {
-        color: 'red'
-        , right: 90
-        , top: -14
-    },
+        color: 'red',
+        marginBottom:10
+      },
+      btn: {
+        textAlign: 'center',
+        fontSize: 20,
+        borderWidth: 1,
+        backgroundColor: '#24a0ed',
+        height: 45,
+        width: 200,
+        paddingTop: 8,
+        borderRadius: 20,
+        color: '#fff',
+        borderBottomColor: '#228B22',
+        left:'13%',
+        top:20
+    }
 });
 
-export default DeleteUser;
+export default withTranslation()(DeleteUser);

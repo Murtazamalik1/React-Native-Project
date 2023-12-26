@@ -1,46 +1,45 @@
 import React, { Component } from 'react';
+import { withTranslation } from 'react-i18next';
 import { View, Text, TextInput, Button, StyleSheet, Alert, TouchableOpacity } from 'react-native';
 import axios from 'axios';
+import { t } from 'i18next';
 
 class AddUser extends Component {
   constructor(props) {
     super(props);
-
     this.state = {
       firstName: '',
       lastName: '',
       email: '',
       firstNameError: '',
       lastNameError: '',
-      emailError: ''
+      emailError: '',
+      apiRespone:''
     };
   }
-  // componentDidMount(){
-  //   this.formValidation();
-  // }
   validateInputs = () => {
-    const { firstName, lastName,email } = this.state;
+    const { t } = this.props;
+    const { firstName, lastName, email } = this.state;
     let isValid = true;
 
     if (firstName.trim() === '') {
-      this.setState({ firstNameError: 'firstName cannot be empty' });
+      this.setState({ firstNameError: t('firstName cannot be empty') });
       isValid = false;
     } else {
       this.setState({ firstNameError: '' });
     }
     if (lastName.trim() === '') {
-      this.setState({ lastNameError: 'lastName cannot be empty' });
+      this.setState({ lastNameError: t('lastName cannot be empty') });
       isValid = false;
     } else {
       this.setState({ lastNameError: '' });
     }
     if (email.trim() === '') {
-      this.setState({ emailError: 'email cannot be empty' });
+      this.setState({ emailError: t('email cannot be empty') });
       isValid = false;
     } else {
       this.setState({ emailError: '' });
     }
-
     return isValid;
   };
   handleCreateUser = () => {
@@ -55,50 +54,48 @@ class AddUser extends Component {
         })
           .then(res => {
             this.setState({
-              firstName: res.data.firstName
+              apiRespone: res.data.firstName,
+              firstName:'',
+              lastName:'',
+              email:''
             });
-            //  console.log('--------res.data.firstName----', res.data.firstName)
+            Alert.alert(t('Successfully Added'))
           })
       } catch (error) {
         this.setState({ error: 'Invalid credentials. Please try again.' });
-        // .catch(error) {
-        //   console.error('Error creating user:', error);
-        // };
       };
     }
   }
 
   render() {
+    const { t } = this.props;
     return (
       <View style={styles.container}>
-        <Text style={styles.textStyle}>Add New User</Text>
+        <Text style={styles.textStyle}> {t('Add New User')} </Text>
         <TextInput
           style={styles.input}
-          placeholder=" enter first name"
-          placeholderTextColor="#12c9ff"
+          placeholder= {t("Enter Your firstName")}
           value={this.state.firstName}
           onChangeText={text => this.setState({ firstName: text, firstNameError: '' })}
         />
         <Text style={styles.fieldError}>{this.state.firstNameError}</Text>
         <TextInput
           style={styles.input}
-          placeholder=" enter Last name"
-          placeholderTextColor="#12c9ff"
+          placeholder= {t("Enter Your LastName")}
           value={this.state.lastName}
           onChangeText={text => this.setState({ lastName: text, lastNameError: '' })}
         />
         <Text style={styles.fieldError}>{this.state.lastNameError}</Text>
         <TextInput
           style={styles.input}
-          placeholder=" enter email"
-          placeholderTextColor="#12c9ff"
+          placeholder= {t("Enter Your Email")}
           value={this.state.email}
           onChangeText={text => this.setState({ email: text, emailError: '' })}
         />
         <Text style={styles.fieldError}>{this.state.emailError}</Text>
         <TouchableOpacity
           onPress={this.handleCreateUser} >
-          <Text style={styles.btn}>Add User</Text>
+          <Text style={styles.btn}> {t('Add User')} </Text>
         </TouchableOpacity>
       </View>
     );
@@ -108,8 +105,8 @@ class AddUser extends Component {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    // justifyContent: 'center',
-    alignItems: 'center'
+    paddingHorizontal: 10,
+    left:40
   },
   input: {
     justifyContent: 'center',
@@ -117,33 +114,36 @@ const styles = StyleSheet.create({
     width: '80%',
     borderColor: 'gray',
     borderBottomWidth: 1,
-    marginBottom: 20,
+    marginBottom: 10,
     paddingHorizontal: 3,
+    fontSize:15
   },
   textStyle: {
     marginTop: 50,
     marginBottom: 60,
     fontSize: 30,
-    color: '#20B2AA'
+    color: '#20B2AA',
+    left:'12%',
   },
   fieldError: {
-    color: 'red'
-    , right: 90
-    , top: -19
+    color: 'red',
+    padding:5,
+    top:-15
+    
   },
   btn: {
-    textAlign: 'center',
+    textAlign:'center',
     fontSize: 20,
     borderWidth: 1,
-    backgroundColor: '#4169E1',
+    backgroundColor: '#24a0ed',
     height: 45,
     width: 200,
     paddingTop: 8,
     borderRadius: 20,
     color: '#fff',
-    // borderColor: '#bbbbbb',
-    borderBottomColor: '#228B22'
+    borderBottomColor: '#228B22',
+    left:'12%',
   }
 });
 
-export default AddUser;
+export default withTranslation()(AddUser);

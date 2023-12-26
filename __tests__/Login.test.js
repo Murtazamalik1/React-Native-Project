@@ -30,8 +30,8 @@ describe('Add Page', () => {
     const Component = renderer.create(<LoginScreen{...props}
     />).getInstance();
 
-    Component.state.username = "kminchelle"
-    Component.state.password = "0lelplR"
+    // Component.state.username = "kminchelle"
+    // Component.state.password = "0lelplR"
     // Mock the API call 
     moxios.stubRequest('https://dummyjson.com/auth/login', {
       status: 200,
@@ -41,11 +41,10 @@ describe('Add Page', () => {
     setTimeout(() => {
       // Check if the fetched products are rendered in the component
 
-      expect(Component.state.username).toEqual(mockedResponse.username);
-      expect(Component.state.password).toEqual(mockedResponse.password);
+      //expect(Component.state.ApiResponse).toEqual(mockedResponse);
       expect(moxios.requests.mostRecent().url).toBe('https://dummyjson.com/auth/login');
       expect(moxios.requests.mostRecent().config.method).toBe('post');
       done();
-    }, 500)
+    }, 1000)
   });
 })

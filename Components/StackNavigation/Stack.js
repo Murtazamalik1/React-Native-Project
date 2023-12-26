@@ -1,4 +1,5 @@
 import React from "react";
+import { withTranslation } from 'react-i18next';
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import { NavigationContainer } from "@react-navigation/native";
 import { createDrawerNavigator } from '@react-navigation/drawer';
@@ -12,6 +13,7 @@ import Icon from "react-native-vector-icons/Ionicons"
 import Delete from "../CrudOperation/Delete";
 import AddUser from "../CrudOperation/Add";
 import PushNotificationComponent from "../Notification/NotificationService";
+import TranslationScreen from "../translations/TranslationScreen";
 const stacks = createNativeStackNavigator();
 const Drawers = createDrawerNavigator();
 
@@ -19,12 +21,11 @@ function Root() {
   return (
     <Drawers.Navigator drawerContent={props => <CustomDrawer {...props} />}
       screenOptions={styles.DrawerStyle}>
-      {<Drawers.Screen name="Home" component={HomeScreen}/>}
+      {<Drawers.Screen name= "Home" component={HomeScreen}/>}
       <Drawers.Screen name="Update" component={UpdateUser} />
       <Drawers.Screen name="Delete" component={Delete} />
       <Drawers.Screen name="Add" component={AddUser} />
       <Drawers.Screen name="Notification" component={PushNotificationComponent}/>
-      
     </Drawers.Navigator>
   );
 }
@@ -36,6 +37,7 @@ const AuthStack = () => {
         <stacks.Screen name="Login" component={LoginScreen} />
         <stacks.Screen name="Root" component={Root} />
         <stacks.Screen name="SignUp" component={Register} />
+        <stacks.Screen name="translation" component={TranslationScreen} />
       </stacks.Navigator>
     </NavigationContainer>
   )
@@ -48,4 +50,4 @@ const styles = StyleSheet.create({
     headerShown: true
   }
 })
-export default AuthStack;
+export default withTranslation()(AuthStack);

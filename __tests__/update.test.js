@@ -42,7 +42,7 @@ describe('Add Page', () => {
         Component. handleUpdateUser()
         setTimeout(() => {
             // Check if the fetched products are rendered in the component
-            expect(Component.state.firstName).toEqual(mockedResponse.firstName);
+            expect(Component.state. Apiresponse).toEqual(mockedResponse.firstName);
            // expect(moxios.requests.mostRecent().url).toBe('https://dummyjson.com/users/1');
           //  expect(moxios.requests.mostRecent().config.method).toBe('delete');
             done();

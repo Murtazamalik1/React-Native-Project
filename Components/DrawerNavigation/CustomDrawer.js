@@ -1,4 +1,5 @@
 import React from "react";
+import { withTranslation } from 'react-i18next';
 import { View, Text, ImageBackground, Image, StyleSheet } from "react-native";
 import { DrawerContentScrollView, DrawerItemList } from '@react-navigation/drawer'
 import Logout from "../StackNavigation/Logout";
@@ -8,15 +9,16 @@ class CustomDrawer extends React.Component {
         super(props)
     }
     render() {
+        const { t } = this.props;
         return (
             <View style={{ flex: 1 }}>
                 <DrawerContentScrollView {...this.props}
                     contentContainerStyle={{ backgroundColor: '#fff' }}>
                     <ImageBackground>
                         <Image source={require('../assets/img.jpg')} style={styles.imageStyle} />
-                        <Text style={styles.ImageText}>Murtaza Ahmed</Text>
+                        <Text style={styles.ImageText}> Murtaza Ahmed</Text>
                     </ImageBackground>
-                    <Text style={styles.UserText}>Update User Details</Text>
+                    <Text style={styles.UserText}>{t('Update User Details')}</Text>
                     <Text style={{ borderBottomWidth: 1, marginBottom: 10 }}></Text>
                     <DrawerItemList {...this.props} />
                 </DrawerContentScrollView>
@@ -54,4 +56,4 @@ const styles = StyleSheet.create({
         left: 10
     },
 })
-export default CustomDrawer;
+export default withTranslation()(CustomDrawer);

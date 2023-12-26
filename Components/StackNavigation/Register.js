@@ -9,6 +9,7 @@ import {
     Alert,
 
 } from "react-native";
+import { withTranslation } from 'react-i18next';
 import axios from 'axios';
 
 
@@ -74,6 +75,7 @@ class Register extends React.Component {
         }
     }
     render() {
+        const { t } = this.props;
         return (
             <ScrollView>
                 <ImageBackground source={require('../assets/leaves.jpg')}
@@ -82,29 +84,29 @@ class Register extends React.Component {
                         Create Account</Text>
                     <View style={styles.BackgroundStyle}>
                         <View style={{ marginTop: 40 }}>
-                            <Text style={styles.LabelStyle}>Name</Text>
+                            <Text style={styles.LabelStyle}> {t('Name')} </Text>
                             <View >
                                 <TextInput
                                     style={[styles.inputStyle, !this.state.nameValid && styles.invalidInput]}
-                                    placeholder="enter your name"
+                                    placeholder={t("Enter Your Name")}
                                     onChangeText={(username) => this.setState({ username })}
                                     value={this.state.username} />
                             </View>
                         </View>
-                        <Text style={styles.LabelStyle}>Email</Text>
+                        <Text style={styles.LabelStyle}> {t('Email')} </Text>
                         <View >
                             <TextInput style={[styles.inputStyle, !this.state.emailValid && styles.invalidInput]}
                                 onChangeText={(email) => this.setState({ email })}
                                 value={this.state.email}
-                                placeholder="enter your email"
+                                placeholder={t("Enter Your Email")}
                                 keyboardType="email-address" />
                         </View>
-                        <Text style={styles.LabelStyle}>Password</Text>
+                        <Text style={styles.LabelStyle}> {t('Password')} </Text>
                         <View >
                             <TextInput style={[styles.inputStyle, !this.state.passwordValid && styles.invalidInput]}
                                 onChangeText={(password) => this.setState({ password })}
                                 value={this.state.password}
-                                placeholder="enter your password"
+                                placeholder={t("Enter Your Password")}
                                 secureTextEntry={true}
                             />
                         </View>
@@ -113,20 +115,18 @@ class Register extends React.Component {
                             <TextInput placeholder="+91"
                                 keyboardType="numeric"
                                 style={styles.NumericStyle} />
-                            <TextInput placeholder="enter phone number"
-                                keyboardType="numeric" style={{
-                                    width: '80%'
-                                }} />
+                            <TextInput placeholder={t("Enter Phone Number")}
+                                keyboardType="numeric" style={{ width: '80%'}}/>
                         </View>
                         <View>
                         </View>
                         <TouchableOpacity onPress={this.handleSignUp}>
-                            <Text style={styles.ButtonText}>Sign Up</Text>
+                            <Text style={styles.ButtonText}> {t('Sign Up')} </Text>
                         </TouchableOpacity>
                         <View style={styles.SignUpContainer}>
-                            <Text style={{ fontSize: 16, fontWeight: 'bold' }}>Already have an account ?</Text>
+                            <Text style={{ fontSize: 16, fontWeight: 'bold' }}>{t('Already have an account')}</Text>
                             <TouchableOpacity onPress={() => this.props.navigation.navigate('Login')}>
-                                <Text style={styles.SignUpBtn}>Log In</Text>
+                                <Text style={styles.SignInBtn}>  {t('Log in')} </Text>
                             </TouchableOpacity>
                         </View>
                     </View>
@@ -162,11 +162,11 @@ const styles = StyleSheet.create({
         marginTop: 8
     },
     inputStyle: {
-        backgroundColor: '#dddddd',
+        backgroundColor: 'white',
         marginTop: 10,
         borderWidth: 1,
         width: '80%',
-        borderRadius: 8,
+        borderRadius: 20,
         borderColor: 'black',
         height: 48,
         paddingLeft: 10,
@@ -185,7 +185,7 @@ const styles = StyleSheet.create({
         textAlign: 'center',
         fontSize: 20,
         borderWidth: 1,
-        backgroundColor: '#237fb7',
+        backgroundColor: '#24a0ed',
         height: 48,
         left: 38,
         paddingTop: 8,
@@ -201,14 +201,14 @@ const styles = StyleSheet.create({
         display: 'flex',
         flexDirection: 'row',
     },
-    SignUpBtn: {
+    SignInBtn: {
         fontSize: 16,
         fontWeight: 'bold',
-        color: 'darkgreen'
+        color: '#24a0ed'
     },
     invalidInput: {
         borderColor: 'red',
         borderWidth: 2
     },
 })
-export default Register;
+export default withTranslation()(Register);

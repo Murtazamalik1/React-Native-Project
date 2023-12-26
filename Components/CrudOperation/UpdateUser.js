@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { withTranslation } from 'react-i18next';
 import { View, Text, TextInput, TouchableOpacity, StyleSheet, Alert } from 'react-native';
 import axios from 'axios';
 
@@ -13,27 +14,28 @@ class UpdateUser extends Component {
             firstNameError: '',
             lastNameError: '',
             emailError: '',
-            Apiresponse: ''
+            Apiresponse: '',
         };
     }
     validateInputs = () => {
+        const { t } = this.props;
         const { firstName, lastName, email } = this.state;
         let isValid = true;
 
         if (firstName.trim() === '') {
-            this.setState({ firstNameError: 'firstName cannot be empty' });
+            this.setState({ firstNameError: t('firstName cannot be empty') });
             isValid = false;
         } else {
             this.setState({ firstNameError: '' });
         }
         if (lastName.trim() === '') {
-            this.setState({ lastNameError: 'lastName cannot be empty' });
+            this.setState({ lastNameError: t('lastName cannot be empty') });
             isValid = false;
         } else {
             this.setState({ lastNameError: '' });
         }
         if (email.trim() === '') {
-            this.setState({ emailError: 'email cannot be empty' });
+            this.setState({ emailError: t('email cannot be empty') });
             isValid = false;
         } else {
             this.setState({ emailError: '' });
@@ -41,6 +43,7 @@ class UpdateUser extends Component {
         return isValid;
     };
     handleUpdateUser = () => {
+        const { t } = this.props;
         if (this.validateInputs()) {
             const { firstName, lastName, email } = this.state;
             try {
@@ -49,10 +52,14 @@ class UpdateUser extends Component {
                     lastName,
                     email
                 })
-                   .then(res => {
+                    .then(res => {
                         this.setState({
-                            firstName: res.data.firstName
+                            Apiresponse: res.data.firstName,
+                            firstName:'',
+                            lastName:'',
+                            email:''
                         });
+                        Alert.alert(t('Successfully Updated'))
                     })
             } catch (error) {
                 this.setState(
@@ -62,36 +69,34 @@ class UpdateUser extends Component {
     }
 
     render() {
+        const { t } = this.props;
         return (
             <View style={styles.container}>
-                <Text style={styles.textStyle}>Update User</Text>
+                <Text style={styles.textStyle}> {t('Update User')} </Text>
                 <TextInput
                     style={styles.input}
-                    placeholder=" enter firstname"
-                    placeholderTextColor="#008080"
+                    placeholder={t("Enter Your firstName")}
                     value={this.state.firstName}
                     onChangeText={text => this.setState({ firstName: text, firstNameError: '' })}
                 />
                 <Text style={styles.fieldError}>{this.state.firstNameError}</Text>
                 <TextInput
                     style={styles.input}
-                    placeholder=" enter lastname"
-                    placeholderTextColor="#008080"
+                    placeholder={t("Enter Your LastName")}
                     value={this.state.lastName}
                     onChangeText={text => this.setState({ lastName: text, lastNameError: '' })}
                 />
                 <Text style={styles.fieldError}>{this.state.lastNameError}</Text>
                 <TextInput
                     style={styles.input}
-                    placeholder=" enter email"
-                    placeholderTextColor="#008080"
+                    placeholder={t("Enter Your Email")}
                     value={this.state.email}
                     onChangeText={text => this.setState({ email: text, emailError: '' })}
                 />
                 <Text style={styles.fieldError}>{this.state.emailError}</Text>
                 <TouchableOpacity
                     onPress={this.handleUpdateUser} >
-                    <Text style={styles.btn}>Update User</Text>
+                    <Text style={styles.btn}> {t('Update User')} </Text>
                 </TouchableOpacity>
             </View>
         );
@@ -101,7 +106,8 @@ class UpdateUser extends Component {
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        alignItems: 'center',
+        paddingHorizontal: 10,
+        left: 40
     },
     input: {
         justifyContent: 'center',
@@ -109,32 +115,35 @@ const styles = StyleSheet.create({
         width: '80%',
         borderColor: 'gray',
         borderBottomWidth: 1,
-        marginBottom: 20,
+        marginBottom: 10,
         paddingHorizontal: 3,
+        fontSize:15
     },
     textStyle: {
         marginTop: 50,
         marginBottom: 60,
         fontSize: 30,
-        color: '#48D1CC'
+        color: '#48D1CC',
+        left: '14%',
     },
     fieldError: {
-        color: 'red'
-        , right: 90
-        , top: -19
+        color: 'red',
+        marginBottom: 10
     },
     btn: {
         textAlign: 'center',
         fontSize: 20,
         borderWidth: 1,
-        backgroundColor: '#2E8B57',
+        backgroundColor: '#24a0ed',
         height: 45,
         width: 200,
         paddingTop: 8,
         borderRadius: 20,
         color: '#fff',
-        borderBottomColor: '#228B22'
+        borderBottomColor: '#228B22',
+        left: '13%',
+        top:20
     }
 });
 
-export default UpdateUser;
+export default withTranslation()(UpdateUser);

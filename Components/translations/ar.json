@@ -1,0 +1,20 @@
+{
+    "usernamePlaceholder": "ادخل اسم المستخدم",
+    "passwordPlaceholder": "أدخل كلمة المرور",
+    "username are required" : "اسم المستخدم مطلوب",
+    "password are required":"كلمة المرور مطلوبة",
+    "Password":"كلمة المرور",
+    "Name":"اسم",
+    "Email":"بريد إلكتروني",
+    "forget your password":"نسيت كلمة المرور؟",
+    "dont have account":"ليس لديك حساب؟",
+    "Sign Up":"اشتراك",
+    "enter your name":"أدخل أسمك",
+    "Enter Your Password":"ادخل رقمك السري",
+    "Enter Phone Number":"أدخل رقم الهاتف",
+    "Enter Your Name":"أدخل أسمك",
+    "Enter Your Email":"أدخل بريدك الإلكتروني",
+    "Already have an account":"هل لديك حساب ؟",
+    "Please Select Preferred Language":"الرجاء تحديد اللغة المفضلة",
+    "Login to your account":"تسجيل الدخول إلى حسابك"
+}

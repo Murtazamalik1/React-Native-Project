@@ -13,14 +13,13 @@ class HomeScreen extends React.Component {
     componentDidMount() {
         this.getApi();
     }
-
-    getApi =  () => {
-         axios.get('https://dummyjson.com/products')
+    getApi = () => {
+        axios.get('https://dummyjson.com/products')
             .then((res) => {
                 const ApiResponse = res.data
-                console.log('------response-------',res.data)
+                console.log('------response-------', res.data)
                 this.setState({
-                    data: res.data
+                    data: res.data.products
                 });
             })
             .catch(error => {
@@ -35,18 +34,19 @@ class HomeScreen extends React.Component {
                     data={this.state.data}
                     keyExtractor={(item, index) => index.toString()}
                     renderItem={({ item }) => (
-                        <View style ={styles.Container}>
+                        <View style={styles.Container}>
                             <View style={styles.productSection}>
-                                <View style = {styles.productimgSection}>
-                                <Image source={require('../Components/assets/newpHONE.jpg')} style={styles.imageStyle}/>
+                                <View style={styles.productimgSection}>
+                                    <Image source={require('../Components/assets/newpHONE.jpg')} style={styles.imageStyle} />
+                                    <Text style={styles.description}>{item.description}</Text>
                                 </View>
                                 <View style={styles.productDetailsSection}>
                                     <Text style={styles.brand}>Brand {item.brand}</Text>
                                     <Text style={styles.title}>{item.title}</Text>
                                     <Text style={styles.rating}>rating {item.rating}</Text>
-                                    <Text style={styles.price}>${item.price} <Text style={{fontSize:15}}>(30% off)</Text></Text>
-                                    <Text style={styles.description}>{item.description}</Text>
-                                    <Text style= {styles.category}>{item.category}</Text>
+                                    <Text style={styles.price}>${item.price} <Text style={{ fontSize: 15 }}>(30% off)</Text></Text>
+                                    {/* <Text style={styles.description}>{item.description}</Text> */}
+                                    <Text style={styles.category}>{item.category}</Text>
                                 </View>
                             </View>
                         </View>
@@ -59,48 +59,53 @@ class HomeScreen extends React.Component {
 }
 const styles = StyleSheet.create({
     Container: {
-     padding: 2,
+        flex: 1,
+        padding: 2,
     },
     imageStyle: {
-        width: '100%',
-        height: 200,
-        resizeMode: 'contain'
+        width: '70%',
+        height: 100,
+        resizeMode: 'contain',
+        borderRadius: 50,
     },
     productSection: {
-        borderWidth:1,
-        borderColor:'#dddddd',
-        flexDirection:'row',
-        marginVertical:15,
+        padding:10,
+        borderWidth: 1,
+        borderColor: '#dddddd',
+        flexDirection: 'row',
+        marginVertical: 10,
     },
-    productimgSection:{
-        width:'40%',
-        backgroundColor:'#dddddd'
+    productimgSection: {
+        width: '40%',
+        left: 15
     },
-    productDetailsSection:{
-        width:'60%',
-        padding:10
+    productDetailsSection: {
+        width: '60%',
+        padding: 10,
+        left: 10
     },
-    brand:{
-        color:'black',
-        fontSize:16
+    brand: {
+        color: 'black',
+        fontSize: 16,
+        fontWeight:'bold'
     },
-    title:{
-    fontSize:16    
+    title: {
+        fontSize: 16
     },
-    rating:{
-        fontSize:16,
-        color:'#ffa534'
+    rating: {
+        fontSize: 16,
+        color: '#ffa534'
     },
-    price:{
-        fontSize:25,
-        fontWeight:"bold"
+    price: {
+        fontSize: 25,
+        fontWeight: "bold"
     },
-    description:{
-        fontSize:16
+    description: {
+        fontSize: 16,
     },
-    category:{
-        color:"#0096fc",
-        fontSize:18
+    category: {
+        color: "#0096fc",
+        fontSize: 18
     }
 
 })
