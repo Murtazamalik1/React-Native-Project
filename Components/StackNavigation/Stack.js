@@ -25,7 +25,6 @@ function Root() {
       <Drawers.Screen name="Update" component={UpdateUser} />
       <Drawers.Screen name="Delete" component={Delete} />
       <Drawers.Screen name="Add" component={AddUser} />
-      <Drawers.Screen name="Notification" component={PushNotificationComponent}/>
     </Drawers.Navigator>
   );
 }
