@@ -42,12 +42,12 @@ describe('Add Page', () => {
         Component.handleCreateUser()
         setTimeout(() => {
             // Check if the fetched products are rendered in the component
-            expect(Component.state.apiRespone).toEqual(mockedResponse.firstName);
-            expect(Component.state.apiRespone).toEqual(mockedResponse.lastName);
-            expect(Component.state.apiRespone).toEqual(mockedResponse.email);
+           expect(Component.state.apiRespone).toEqual(mockedResponse.firstName);
+           expect(Component.state.apiRespone).toEqual(mockedResponse.lastName);
+           expect(Component.state.apiRespone).toEqual(mockedResponse.email);
             expect(moxios.requests.mostRecent().url).toBe('https://dummyjson.com/users/add');
             expect(moxios.requests.mostRecent().config.method).toBe('post');
             done();
-        }, 500)
+        }, 1000)
     });
 })

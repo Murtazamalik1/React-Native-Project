@@ -1,6 +1,7 @@
 import axios from "axios";
 import { withTranslation } from 'react-i18next';
 import React from "react";
+// import './i18n';
 import { Text, View, StyleSheet, TextInput, TouchableOpacity, ImageBackground, ScrollView, ToastAndroid } from "react-native";
 
 class LoginScreen extends React.Component {
@@ -56,6 +57,7 @@ class LoginScreen extends React.Component {
                     })
                 }
         }
+        
     render() {
         const { t } = this.props;
         return (
@@ -84,7 +86,6 @@ class LoginScreen extends React.Component {
                         <TextInput style={styles.InputStyle}
                             placeholder={t('passwordPlaceholder')}
                             onChangeText={(text) => this.setState({ password: text, passwordError: '' })}
-                            secureTextEntry={true}
                             value={this.state.password}
                              />
                         <Text style={styles.inValidInput}>{this.state.passwordError}
@@ -174,7 +175,6 @@ const styles = StyleSheet.create({
     },
     passworStyle: {
         color: 'black',
-        textAlign: 'left',
         width: 349,
         marginBottom: 20,
         left: 17

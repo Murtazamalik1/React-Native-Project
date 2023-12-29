@@ -70,10 +70,9 @@ const styles = StyleSheet.create({
     },
     productSection: {
         padding:10,
-        borderWidth: 1,
         borderColor: '#dddddd',
         flexDirection: 'row',
-        marginVertical: 10,
+        borderBottomWidth:1
     },
     productimgSection: {
         width: '40%',
@@ -81,8 +80,8 @@ const styles = StyleSheet.create({
     },
     productDetailsSection: {
         width: '60%',
-        padding: 10,
-        left: 10
+        padding: 1,
+        left: 25,
     },
     brand: {
         color: 'black',
@@ -97,7 +96,7 @@ const styles = StyleSheet.create({
         color: '#ffa534'
     },
     price: {
-        fontSize: 25,
+        fontSize: 18,
         fontWeight: "bold"
     },
     description: {

@@ -11,7 +11,7 @@ i18n
   .init({
     compatibilityJSON: 'v3',
     resources: {
-      // lng: I18nManager.isRTL ? 'ar' : 'en',
+       lng: I18nManager.isRTL ? 'en' : 'ar',
       en: {
         translation: en,
       },
@@ -29,4 +29,5 @@ i18n
       escapeValue: false,
     },
   });
+  
 export default i18n;

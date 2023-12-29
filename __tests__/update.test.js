@@ -39,12 +39,12 @@ describe('Add Page', () => {
             status: 200,
             response: mockedResponse  // Mocked response data
         })
-        Component. handleUpdateUser()
+        Component.handleUpdateUser()
         setTimeout(() => {
             // Check if the fetched products are rendered in the component
-            expect(Component.state. Apiresponse).toEqual(mockedResponse.firstName);
-           // expect(moxios.requests.mostRecent().url).toBe('https://dummyjson.com/users/1');
-          //  expect(moxios.requests.mostRecent().config.method).toBe('delete');
+            expect(Component.state.Apiresponse).toEqual(mockedResponse.firstName);
+            expect(moxios.requests.mostRecent().url).toBe('https://dummyjson.com/users/1');
+            expect(moxios.requests.mostRecent().config.method).toBe('delete');
             done();
         }, 500)
     });

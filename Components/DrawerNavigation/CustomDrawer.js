@@ -14,16 +14,15 @@ class CustomDrawer extends React.Component {
             <View style={{ flex: 1 }}>
                 <DrawerContentScrollView {...this.props}
                     contentContainerStyle={{ backgroundColor: '#fff' }}>
-                    <ImageBackground>
+                    <ImageBackground style={{ flexDirection: 'row' }}>
                         <Image source={require('../assets/img.jpg')} style={styles.imageStyle} />
                         <Text style={styles.ImageText}> Murtaza Ahmed</Text>
                     </ImageBackground>
-                    <Text style={styles.UserText}>{t('Update User Details')}</Text>
-                    <Text style={{ borderBottomWidth: 1, marginBottom: 10 }}></Text>
+                    <Text style={{ borderBottomWidth: 2, marginBottom: 10,borderColor:'#dddddd' }}></Text>
                     <DrawerItemList {...this.props} />
                 </DrawerContentScrollView>
                 <View style={styles.logoutContainer}>
-                    <Logout {...this.props}/>
+                    <Logout {...this.props} />
                 </View>
             </View>
         )
@@ -32,25 +31,19 @@ class CustomDrawer extends React.Component {
 
 const styles = StyleSheet.create({
     imageStyle: {
-        flexDirection: 'row',
-        alignItems: 'center',
-        padding: 16,
-        width: 100,
-        height: 100,
+        width: 80,
+        height: 80,
         borderRadius: 50,
-        marginLeft: 30
+        marginLeft: 20,
+        top: 10,
+        marginBottom:5
     },
     ImageText: {
-        borderBottomWidth: 1,
         fontSize: 20,
         marginLeft: 10,
         marginBottom: 10,
-        fontWeight: 'bold'
-    },
-    UserText: {
-        fontSize: 15,
         fontWeight: 'bold',
-        textAlign: 'center',
+        top: 35
     },
     logoutContainer: {
         left: 10
